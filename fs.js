@@ -10,24 +10,28 @@ import RNFetchBlobWriteStream from './class/RNFetchBlobWriteStream'
 import RNFetchBlobReadStream from './class/RNFetchBlobReadStream'
 import RNFetchBlobFile from './class/RNFetchBlobFile'
 
-const RNFetchBlob: RNFetchBlobNative = NativeModules.RNFetchBlob
+let RNFetchBlob: RNFetchBlobNative = NativeModules.RNFetchBlob;
 
-const dirs = {
-  DocumentDir :  RNFetchBlob.DocumentDir,
-  CacheDir : RNFetchBlob.CacheDir,
-  PictureDir : RNFetchBlob.PictureDir,
-  MusicDir : RNFetchBlob.MusicDir,
-  MovieDir : RNFetchBlob.MovieDir,
-  DownloadDir : RNFetchBlob.DownloadDir,
-  DCIMDir : RNFetchBlob.DCIMDir,
-  SDCardDir: RNFetchBlob.SDCardDir, // Depracated
-  SDCardApplicationDir: RNFetchBlob.SDCardApplicationDir, // Deprecated
-  MainBundleDir : RNFetchBlob.MainBundleDir,
-  LibraryDir : RNFetchBlob.LibraryDir
+if (!RNFetchBlob) {
+  RNFetchBlob = {};
 }
 
+const dirs = {
+  DocumentDir :  RNFetchBlob.DocumentDir || '/data/user/0/vn.base.message/files',
+  CacheDir : RNFetchBlob.CacheDir || '/data/user/0/vn.base.message/cache',
+  PictureDir : RNFetchBlob.PictureDir || '/storage/emulated/0/Pictures',
+  MusicDir : RNFetchBlob.MusicDir || '/storage/emulated/0/Music',
+  MovieDir : RNFetchBlob.MovieDir || '/storage/emulated/0/Movies',
+  DownloadDir : RNFetchBlob.DownloadDir || '/storage/emulated/0/Download',
+  DCIMDir : RNFetchBlob.DCIMDir || '/storage/emulated/0/DCIM',
+  SDCardDir: RNFetchBlob.SDCardDir || '/storage/emulated/0', // Depracated
+  SDCardApplicationDir: RNFetchBlob.SDCardApplicationDir || '/storage/emulated/0/Android/data/vn.base.message', // Deprecated
+  MainBundleDir : RNFetchBlob.MainBundleDir || '/data/user/0/vn.base.message',
+  LibraryDir : RNFetchBlob.LibraryDir || ''
+};
+
 function addCode(code: string, error: Error): Error {
-  error.code = code
+  error.code = code;
   return error
 }
 
